@@ -20,10 +20,7 @@ const __dirname = path.resolve();
 app.use("/images", express.static(path.join(__dirname, "./images")));
 app.use(cookieParser());
 app.use(
-  cors({
-    origin: "https://fastcartfrontend.onrender.com", // Allow this origin
-    credentials: true, // Allow credentials (cookies, headers)
-  })
+  cors()
 );
 app.use(express.json());
 
