@@ -21,8 +21,8 @@ app.use("/images", express.static(path.join(__dirname, "./images")));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: true, // Reflect the request origin in the CORS response
-    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    origin: "https://fastcartfrontend.onrender.com", // Allow this origin
+    credentials: true, // Allow credentials (cookies, headers)
   })
 );
 app.use(express.json());
