@@ -6,9 +6,10 @@ const generateTokenAndSetCookie = async (id, res) => {
   res.cookie("jwt", token, {
     maxAge: 15 * 24 * 60 * 60 * 1000,
     httpOnly: true, //prevent the xss attacks cross origin scripting attacks
-
-    sameSite: "None", // Required for cross-site requests
-    domain: "fastcartfrontend.onrender.com", // Optional: Set the domain to your frontend's domain if needed
+    
+    // sameSite: "strict", // crfs attacks cross-site request forgery attacks
+    sameSite: 'none', // Required for cross-site requests
+    domain: 'fastcartfrontend.onrender.com' ,// Optional: Set the domain to your frontend's domain if needed
     secure: process.env.MODE_ENV !== "devlopment",
   });
 };
