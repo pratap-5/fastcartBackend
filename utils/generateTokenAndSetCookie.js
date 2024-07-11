@@ -7,7 +7,7 @@ const generateTokenAndSetCookie = async (id, res) => {
     maxAge: 15 * 24 * 60 * 60 * 1000,
     httpOnly: true, //prevent the xss attacks cross origin scripting attacks
 
-    sameSite: "None", // Required for cross-origin requests
+    sameSite: "strict",
     domain: "fastcartfrontend.onrender.com", // Optional: Set the domain to your frontend's domain if needed
     secure: true, // process.env.MODE_ENV !== "devlopment",
   });
