@@ -4,7 +4,7 @@ import generateTokenAndSetCookie from "../utils/generateTokenAndSetCookie.js";
 
 export const signUp = async (req, res) => {
   try {
-    const { fullName, email, password, confirmPassword, gender } = req.body;
+    const { fullName, email, password, confirmPassword } = req.body;
 
     if (password !== confirmPassword)
       return res.status(400).json({ error: "password did not match" });
@@ -20,7 +20,6 @@ export const signUp = async (req, res) => {
       fullName,
       email,
       password: hashPassword,
-      gender,
     });
 
     if (newUser) {
@@ -31,7 +30,6 @@ export const signUp = async (req, res) => {
         fullName: newUser.fullName,
         email: newUser.email,
         password: newUser.password,
-        gender: newUser.gender,
       });
     }
   } catch (error) {
@@ -40,6 +38,7 @@ export const signUp = async (req, res) => {
   }
 };
 
+//for login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -66,6 +65,8 @@ export const login = async (req, res) => {
     return res.status(500).json({ error: "internal server erorr " });
   }
 };
+
+//for logout
 export const logout = async (req, res) => {
   try {
     res.cookie("jwt", "", { maxAge: 0 });
