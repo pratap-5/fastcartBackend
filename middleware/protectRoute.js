@@ -21,6 +21,9 @@ const protectRoute = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ error: "user not found" });
     }
+
+
+    
     req.user = user;
     next();
   } catch (error) {
