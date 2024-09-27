@@ -8,7 +8,7 @@ const generateTokenAndSetCookie = async (id, res) => {
     httpOnly: true, //prevent the xss attacks cross origin scripting attacks
 
     sameSite: "None", // Required for cross-origin requests
-    secure:   true,// process.env.MODE_ENV !== "devlopment",
+    secure:true,// process.env.MODE_ENV !== "devlopment",
   });
 };
 
