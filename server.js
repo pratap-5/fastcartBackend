@@ -12,10 +12,9 @@ const port = process.env.PORT;
 const app = express();
 
 
-
 app.use(cors({
   origin: 'https://fastcartfrontend.onrender.com',  // Allow only requests from this origin
-  credentials: true                 // Allow credentials 
+  credentials: true          // Allow credentials 
 }));
 
 app.use(express.json());
