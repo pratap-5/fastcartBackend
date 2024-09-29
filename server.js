@@ -1,25 +1,25 @@
 import express from "express";
-import cookieParser from "cookie-parser";
-import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
-import taskRoutes from "./routes/task.routes.js"
-
+import taskRoutes from "./routes/task.routes.js";
+import cookieParser from "cookie-parser";
 import connectToMogodb from "./db/connectToMongodb.js";
-
-
-import path from "path";
+import cors from "cors";
 
 dotenv.config();
 
 const port = process.env.PORT;
 const app = express();
 
-const __dirname = path.resolve();
 
 
+app.use(cors({
+  origin: 'http://localhost:3000',  // Allow only requests from this origin
+  credentials: true                 // Allow credentials 
+}));
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/", authRoutes);
 app.use("/api/", taskRoutes);

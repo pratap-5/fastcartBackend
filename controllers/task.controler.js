@@ -2,8 +2,8 @@ import Task from "../model/task.model.js";
 
 export const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({});
-    return res.status(200).json({ tasks });
+    const tasks = await Task.find({}).populate("user_id");
+    return res.status(200).send(tasks);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "internal server error" });
@@ -13,7 +13,7 @@ export const getTasks = async (req, res) => {
 export const createtask = async (req, res) => {
   try {
     const { title, description, status, due_date, priority } = req.body;
-    const user_id = req.User;
+    const user_id = req.user._id;
 
     const newTask = new Task({
       title,
@@ -42,10 +42,10 @@ export const createtask = async (req, res) => {
 };
 export const updateTask = async (req, res) => {
   try {
-    const taskId = req.params;
-    const user_id = req.User;
+    const { task_id } = req.params;
+    const user_id = req.user._id;
     const { title, description, status, due_date, priority } = req.body;
-    const task = await Task.findById(taskId);
+    const task = await Task.findById(task_id);
     if (!task) return res.status(400).json({ error: "no such task available" });
 
     task.title = title;
@@ -54,6 +54,8 @@ export const updateTask = async (req, res) => {
     task.priority = priority;
     task.due_date = due_date;
     task.user_id = user_id;
+ 
+    await task.save();
 
     return res.status(200).json({
       title: task.title,
@@ -69,12 +71,12 @@ export const updateTask = async (req, res) => {
   }
 };
 
-
-
 export const deleteTask = async (req, res) => {
   try {
-    const taskId = req.params;
-    await Task.deleteOne({ _id: taskId });
+    const { task_id } = req.params;
+    await Task.deleteOne({ _id: task_id });
+
+    return res.status(200).json({ msg: "delted successfully" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "internal server error" });
